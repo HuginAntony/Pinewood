@@ -9,7 +9,7 @@ namespace PinnacleSample.DatabaseLayer
     {
         public void Add(PartInvoice invoice)
         {
-            var connectionString = ConfigurationManager.ConnectionStrings["appDatabase"].ConnectionString;
+            var connectionString = ConfigurationManager.ConnectionStrings["PinnacleConnection"].ConnectionString;
 
             using (var connection = new SqlConnection(connectionString))
             {

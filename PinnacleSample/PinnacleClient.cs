@@ -1,14 +1,19 @@
 ﻿using PinnacleSample.Controllers;
 using PinnacleSample.Models;
+using PinnacleSample.ServiceRegistration;
+using SimpleInjector;
 
 namespace PinnacleSample
 {
     public class PinnacleClient
     {
+        private static readonly Container Container = new Container();
         private readonly PartInvoiceController _partInvoiceController;
 
         public PinnacleClient()
         {
+            SimpleInjectorSetup.SetupContainerRegistration(Container);
+
             _partInvoiceController = new PartInvoiceController();
         }
 

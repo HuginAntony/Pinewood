@@ -11,9 +11,9 @@ namespace PinnacleSample.DatabaseLayer
         {
             Customer customer = null;
 
-            string connectionString = ConfigurationManager.ConnectionStrings["appDatabase"].ConnectionString;
+            string connectionString = ConfigurationManager.ConnectionStrings["PinnacleConnection"].ConnectionString;
 
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (var connection = new SqlConnection(connectionString))
             {
                 var command = new SqlCommand
                 {

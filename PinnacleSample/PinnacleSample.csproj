@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="SimpleInjector, Version=5.0.0.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
+      <HintPath>..\packages\SimpleInjector.5.3.3\lib\net461\SimpleInjector.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -45,12 +48,17 @@
     <Compile Include="Models\CreatePartInvoiceResult.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="DatabaseLayer\CustomerRepositoryDB.cs" />
+    <Compile Include="ServiceRegistration\SimpleInjectorSetup.cs" />
     <Compile Include="Services\PartAvailabilityService.cs" />
     <Compile Include="Models\PartInvoice.cs" />
     <Compile Include="Controllers\PartInvoiceController.cs" />
     <Compile Include="DatabaseLayer\PartInvoiceRepositoryDB.cs" />
     <Compile Include="PinnacleClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
