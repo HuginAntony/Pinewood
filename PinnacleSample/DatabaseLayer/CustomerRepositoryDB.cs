@@ -1,6 +1,7 @@
 ﻿using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using PinnacleSample.Models;
 
 namespace PinnacleSample.DatabaseLayer
 {
@@ -8,36 +9,36 @@ namespace PinnacleSample.DatabaseLayer
     {
         public Customer GetByName(string name)
         {
-            Customer _Customer = null;
+            Customer customer = null;
 
-            string _ConnectionString = ConfigurationManager.ConnectionStrings["appDatabase"].ConnectionString;
+            string connectionString = ConfigurationManager.ConnectionStrings["appDatabase"].ConnectionString;
 
-            using (SqlConnection _Connection = new SqlConnection(_ConnectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                SqlCommand _Command = new SqlCommand
+                var command = new SqlCommand
                 {
-                    Connection = _Connection,
+                    Connection = connection,
                     CommandType = CommandType.StoredProcedure,
                     CommandText = "CRM_GetCustomerByName"
                 };
 
-                SqlParameter parameter = new SqlParameter("@Name", SqlDbType.NVarChar) { Value = name };
-                _Command.Parameters.Add(parameter);
+                var parameter = new SqlParameter("@Name", SqlDbType.NVarChar) { Value = name };
+                command.Parameters.Add(parameter);
 
-                _Connection.Open();
-                SqlDataReader _Reader = _Command.ExecuteReader(CommandBehavior.CloseConnection);
-                while (_Reader.Read())
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader(CommandBehavior.CloseConnection);
+                while (reader.Read())
                 {
-                    _Customer = new Customer
+                    customer = new Customer
                     {
-                        ID = int.Parse(_Reader["CustomerID"].ToString()),
-                        Name = _Reader["Name"].ToString(),
-                        Address = _Reader["Address"].ToString()
+                        Id = int.Parse(reader["CustomerID"].ToString()),
+                        Name = reader["Name"].ToString(),
+                        Address = reader["Address"].ToString()
                     };
                 }
             }
 
-            return _Customer;
+            return customer;
         }
     }
 }

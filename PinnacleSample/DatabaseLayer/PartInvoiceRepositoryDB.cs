@@ -1,6 +1,7 @@
 ﻿using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using PinnacleSample.Models;
 
 namespace PinnacleSample.DatabaseLayer
 {
@@ -8,26 +9,26 @@ namespace PinnacleSample.DatabaseLayer
     {
         public void Add(PartInvoice invoice)
         {
-            string _ConnectionString = ConfigurationManager.ConnectionStrings["appDatabase"].ConnectionString;
+            var connectionString = ConfigurationManager.ConnectionStrings["appDatabase"].ConnectionString;
 
-            using (SqlConnection _Connection = new SqlConnection(_ConnectionString))
+            using (var connection = new SqlConnection(connectionString))
             {
-                SqlCommand _Command = new SqlCommand
+                var command = new SqlCommand
                 {
-                    Connection = _Connection,
+                    Connection = connection,
                     CommandType = CommandType.StoredProcedure,
                     CommandText = "PMS_AddPartInvoice"
                 };
 
-                SqlParameter _StockCodeParameter = new SqlParameter("@StockCode", SqlDbType.VarChar, 50) { Value = invoice.StockCode };
-                _Command.Parameters.Add(_StockCodeParameter);
-                SqlParameter QuantityParameter = new SqlParameter("@Quantity", SqlDbType.Int) { Value = invoice.Quantity };
-                _Command.Parameters.Add(QuantityParameter);
-                SqlParameter CustomerIDParameter = new SqlParameter("@CustomerID", SqlDbType.Int) { Value = invoice.CustomerID };
-                _Command.Parameters.Add(CustomerIDParameter);
+                var stockCodeParameter = new SqlParameter("@StockCode", SqlDbType.VarChar, 50) { Value = invoice.StockCode };
+                command.Parameters.Add(stockCodeParameter);
+                var quantityParameter = new SqlParameter("@Quantity", SqlDbType.Int) { Value = invoice.Quantity };
+                command.Parameters.Add(quantityParameter);
+                var customerIdParameter = new SqlParameter("@CustomerID", SqlDbType.Int) { Value = invoice.CustomerId };
+                command.Parameters.Add(customerIdParameter);
 
-                _Connection.Open();
-                _Command.ExecuteNonQuery();
+                connection.Open();
+                command.ExecuteNonQuery();
             }
         }
     }

@@ -1,19 +1,20 @@
-﻿using PinnacleSample.Models;
+﻿using PinnacleSample.Controllers;
+using PinnacleSample.Models;
 
 namespace PinnacleSample
 {
     public class PinnacleClient
     {
-        private PartInvoiceController __Controller;
+        private readonly PartInvoiceController _partInvoiceController;
 
         public PinnacleClient()
         {
-            __Controller = new PartInvoiceController();
+            _partInvoiceController = new PartInvoiceController();
         }
 
         public CreatePartInvoiceResult CreatePartInvoice(string stockCode, int quantity, string customerName)
         {
-            return __Controller.CreatePartInvoice(stockCode, quantity, customerName);
+            return _partInvoiceController.CreatePartInvoice(stockCode, quantity, customerName);
         }
     }
 }
