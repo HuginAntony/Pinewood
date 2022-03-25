@@ -1,6 +1,10 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using Moq;
 using PinnacleSample.Controllers;
+using PinnacleSample.DatabaseLayer;
+using PinnacleSample.Models;
+using PinnacleSample.Services;
 
 namespace PinnacleSample.Tests
 {
@@ -10,7 +14,21 @@ namespace PinnacleSample.Tests
         [TestMethod]
         public void Should_Return_False_When_StockCode_Is_NullOrEmpty()
         {
-            var partInvoiceController = new PartInvoiceController(null, null, null);
+            var customerRepositoryMock = new Mock<ICustomerRepository>();
+            var partInvoiceRepositoryMock = new Mock<IPartInvoiceRepository>();
+            var partAvailabilityServiceMock = new Mock<IPartAvailabilityService>();
+
+            customerRepositoryMock.Setup(x => x.GetCustomerByName(It.IsAny<string>()))
+                                  .Returns(new Customer
+                                  {
+                                      Id = 2, Name = "Jimmy", Address = "20 Mystery Lane"
+                                  });
+            
+            partInvoiceRepositoryMock.Setup(x => x.AddPartInvoice(It.IsAny<PartInvoice>())).Returns(true);
+            partAvailabilityServiceMock.Setup(x => x.GetAvailability(It.IsAny<string>())).Returns(2);
+
+
+            var partInvoiceController = new PartInvoiceController(partAvailabilityServiceMock.Object, customerRepositoryMock.Object, partInvoiceRepositoryMock.Object);
             var result = partInvoiceController.CreatePartInvoice("", 10, "Samsung");
             Assert.IsFalse(result.Success);
         }
@@ -18,7 +36,20 @@ namespace PinnacleSample.Tests
         [TestMethod]
         public void Should_Return_False_When_Quantity_Is_LessThanOrEqual_To_Zero()
         {
-            var partInvoiceController = new PartInvoiceController(null, null, null);
+            var customerRepositoryMock = new Mock<ICustomerRepository>();
+            var partInvoiceRepositoryMock = new Mock<IPartInvoiceRepository>();
+            var partAvailabilityServiceMock = new Mock<IPartAvailabilityService>();
+
+            customerRepositoryMock.Setup(x => x.GetCustomerByName(It.IsAny<string>()))
+                                  .Returns(new Customer
+                                  {
+                                      Id = 2, Name = "Jimmy", Address = "20 Mystery Lane" 
+                                  });
+
+            partInvoiceRepositoryMock.Setup(x => x.AddPartInvoice(It.IsAny<PartInvoice>())).Returns(true);
+            partAvailabilityServiceMock.Setup(x => x.GetAvailability(It.IsAny<string>())).Returns(2);
+
+            var partInvoiceController = new PartInvoiceController(partAvailabilityServiceMock.Object, customerRepositoryMock.Object, partInvoiceRepositoryMock.Object);
             var result = partInvoiceController.CreatePartInvoice("JU8", -1, "Samsung");
             Assert.IsFalse(result.Success);
         }
@@ -26,7 +57,20 @@ namespace PinnacleSample.Tests
         [TestMethod]
         public void Should_Return_False_When_CustomerId_Is_LessThanOrEqual_To_Zero()
         {
-            var partInvoiceController = new PartInvoiceController(null, null, null);
+            var customerRepositoryMock = new Mock<ICustomerRepository>();
+            var partInvoiceRepositoryMock = new Mock<IPartInvoiceRepository>();
+            var partAvailabilityServiceMock = new Mock<IPartAvailabilityService>();
+
+            customerRepositoryMock.Setup(x => x.GetCustomerByName(It.IsAny<string>()))
+                                  .Returns(new Customer
+                                  {
+                                      Id = -2, Name = "Sarah", Address = "203 Park Avenue" 
+                                  });
+
+            partInvoiceRepositoryMock.Setup(x => x.AddPartInvoice(It.IsAny<PartInvoice>())).Returns(true);
+            partAvailabilityServiceMock.Setup(x => x.GetAvailability(It.IsAny<string>())).Returns(2);
+
+            var partInvoiceController = new PartInvoiceController(partAvailabilityServiceMock.Object, customerRepositoryMock.Object, partInvoiceRepositoryMock.Object);
             var result = partInvoiceController.CreatePartInvoice("KLJ9", 1, "Samsung");
             Assert.IsFalse(result.Success);
         }
@@ -34,7 +78,22 @@ namespace PinnacleSample.Tests
         [TestMethod]
         public void Should_Return_False_When_Part_Is_Not_Available()
         {
-            var partInvoiceController = new PartInvoiceController(null, null, null);
+            var customerRepositoryMock = new Mock<ICustomerRepository>();
+            var partInvoiceRepositoryMock = new Mock<IPartInvoiceRepository>();
+            var partAvailabilityServiceMock = new Mock<IPartAvailabilityService>();
+
+            customerRepositoryMock.Setup(x => x.GetCustomerByName(It.IsAny<string>()))
+                .Returns(new Customer
+                {
+                    Id = 20,
+                    Name = "Jane",
+                    Address = "12 Menlo Park"
+                });
+
+            partInvoiceRepositoryMock.Setup(x => x.AddPartInvoice(It.IsAny<PartInvoice>())).Returns(true);
+            partAvailabilityServiceMock.Setup(x => x.GetAvailability(It.IsAny<string>())).Returns(0);
+
+            var partInvoiceController = new PartInvoiceController(partAvailabilityServiceMock.Object, customerRepositoryMock.Object, partInvoiceRepositoryMock.Object);
             var result = partInvoiceController.CreatePartInvoice("KLJ9", 1, "Samsung");
             Assert.IsFalse(result.Success);
         }
@@ -42,6 +101,24 @@ namespace PinnacleSample.Tests
         [TestMethod]
         public void Can_Create_Part_Invoice()
         {
+            var customerRepositoryMock = new Mock<ICustomerRepository>();
+            var partInvoiceRepositoryMock = new Mock<IPartInvoiceRepository>();
+            var partAvailabilityServiceMock = new Mock<IPartAvailabilityService>();
+
+            customerRepositoryMock.Setup(x => x.GetCustomerByName(It.IsAny<string>()))
+                .Returns(new Customer
+                {
+                    Id = 20,
+                    Name = "Jane",
+                    Address = "12 Menlo Park"
+                });
+
+            partInvoiceRepositoryMock.Setup(x => x.AddPartInvoice(It.IsAny<PartInvoice>())).Returns(true);
+            partAvailabilityServiceMock.Setup(x => x.GetAvailability(It.IsAny<string>())).Returns(3);
+
+            var partInvoiceController = new PartInvoiceController(partAvailabilityServiceMock.Object, customerRepositoryMock.Object, partInvoiceRepositoryMock.Object);
+            var result = partInvoiceController.CreatePartInvoice("LKJW", 100, "Samsung");
+            Assert.IsTrue(result.Success);
         }
     }
 }
