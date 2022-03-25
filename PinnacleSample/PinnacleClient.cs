@@ -1,4 +1,6 @@
-﻿namespace PinnacleSample
+﻿using PinnacleSample.Models;
+
+namespace PinnacleSample
 {
     public class PinnacleClient
     {

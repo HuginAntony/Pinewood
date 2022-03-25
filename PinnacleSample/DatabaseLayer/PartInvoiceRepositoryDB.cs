@@ -2,7 +2,7 @@
 using System.Data;
 using System.Data.SqlClient;
 
-namespace PinnacleSample
+namespace PinnacleSample.DatabaseLayer
 {
     public class PartInvoiceRepositoryDB
     {

@@ -1,4 +1,8 @@
-﻿namespace PinnacleSample
+﻿using PinnacleSample.DatabaseLayer;
+using PinnacleSample.Models;
+using PinnacleSample.Services;
+
+namespace PinnacleSample
 {
     public class PartInvoiceController
     {

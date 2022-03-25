@@ -1,4 +1,4 @@
-﻿namespace PinnacleSample
+﻿namespace PinnacleSample.Services
 {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName = "App.IPartSupplierService")]
@@ -10,13 +10,13 @@
     }
 
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface IPartAvailabilityServiceChannel : PinnacleSample.IPartAvailabilityService, System.ServiceModel.IClientChannel
+    public interface IPartAvailabilityServiceChannel : IPartAvailabilityService, System.ServiceModel.IClientChannel
     {
     }
 
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class PartAvailabilityServiceClient : System.ServiceModel.ClientBase<PinnacleSample.IPartAvailabilityService>, PinnacleSample.IPartAvailabilityService
+    public partial class PartAvailabilityServiceClient : System.ServiceModel.ClientBase<IPartAvailabilityService>, IPartAvailabilityService
     {
 
         public PartAvailabilityServiceClient()
