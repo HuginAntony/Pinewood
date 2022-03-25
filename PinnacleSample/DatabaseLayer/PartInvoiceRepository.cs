@@ -5,9 +5,9 @@ using PinnacleSample.Models;
 
 namespace PinnacleSample.DatabaseLayer
 {
-    public class PartInvoiceRepositoryDB
+    public class PartInvoiceRepository : IPartInvoiceRepository
     {
-        public void Add(PartInvoice invoice)
+        public bool Add(PartInvoice invoice)
         {
             var connectionString = ConfigurationManager.ConnectionStrings["PinnacleConnection"].ConnectionString;
 
@@ -28,7 +28,9 @@ namespace PinnacleSample.DatabaseLayer
                 command.Parameters.Add(customerIdParameter);
 
                 connection.Open();
-                command.ExecuteNonQuery();
+                var totalRowsUpdated = command.ExecuteNonQuery();
+
+                return totalRowsUpdated > 0;
             }
         }
     }

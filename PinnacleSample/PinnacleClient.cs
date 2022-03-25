@@ -14,7 +14,7 @@ namespace PinnacleSample
         {
             SimpleInjectorSetup.SetupContainerRegistration(Container);
 
-            _partInvoiceController = new PartInvoiceController();
+            _partInvoiceController = Container.GetInstance<PartInvoiceController>();
         }
 
         public CreatePartInvoiceResult CreatePartInvoice(string stockCode, int quantity, string customerName)

@@ -5,7 +5,7 @@ using PinnacleSample.Models;
 
 namespace PinnacleSample.DatabaseLayer
 {
-    public class CustomerRepositoryDB
+    public class CustomerRepository : ICustomerRepository
     {
         public Customer GetByName(string name)
         {

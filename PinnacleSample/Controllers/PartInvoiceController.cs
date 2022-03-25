@@ -6,6 +6,11 @@ namespace PinnacleSample.Controllers
 {
     public class PartInvoiceController
     {
+        private readonly PartAvailabilityServiceClient _partAvailabilityService;
+        public PartInvoiceController(PartAvailabilityServiceClient partAvailabilityService)
+        {
+            _partAvailabilityService = partAvailabilityService;
+        }
         public CreatePartInvoiceResult CreatePartInvoice(string stockCode, int quantity, string customerName)
         {
             if (string.IsNullOrEmpty(stockCode))
@@ -18,20 +23,18 @@ namespace PinnacleSample.Controllers
                 return new CreatePartInvoiceResult(false);
             }
 
-            var customerRepository = new CustomerRepositoryDB();
+            var customerRepository = new CustomerRepository();
             Customer customer = customerRepository.GetByName(customerName);
             if (customer.Id <= 0)
             {
                 return new CreatePartInvoiceResult(false);
             }
 
-            using (PartAvailabilityServiceClient partAvailabilityService = new PartAvailabilityServiceClient())
+
+            int availability = _partAvailabilityService.GetAvailability(stockCode);
+            if (availability <= 0)
             {
-                int availability = partAvailabilityService.GetAvailability(stockCode);
-                if (availability <= 0)
-                {
-                    return new CreatePartInvoiceResult(false);
-                }
+                return new CreatePartInvoiceResult(false);
             }
 
             var partInvoice = new PartInvoice
@@ -41,8 +44,7 @@ namespace PinnacleSample.Controllers
                 CustomerId = customer.Id
             };
 
-
-            var partInvoiceRepository = new PartInvoiceRepositoryDB();
+            var partInvoiceRepository = new PartInvoiceRepository();
             partInvoiceRepository.Add(partInvoice);
 
             return new CreatePartInvoiceResult(true);
