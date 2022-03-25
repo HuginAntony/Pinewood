@@ -1,5 +1,6 @@
 ﻿using PinnacleSample.Controllers;
-using PinnacleSample.DatabaseLayer;
+using PinnacleSample.Interfaces;
+using PinnacleSample.Repositories;
 using PinnacleSample.Services;
 using SimpleInjector;
 

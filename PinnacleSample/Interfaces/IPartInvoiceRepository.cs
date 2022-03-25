@@ -1,6 +1,6 @@
 ﻿using PinnacleSample.Models;
 
-namespace PinnacleSample.DatabaseLayer
+namespace PinnacleSample.Interfaces
 {
     public interface IPartInvoiceRepository
     {

@@ -1,9 +1,10 @@
 ﻿using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using PinnacleSample.Interfaces;
 using PinnacleSample.Models;
 
-namespace PinnacleSample.DatabaseLayer
+namespace PinnacleSample.Repositories
 {
     public class CustomerRepository : ICustomerRepository
     {

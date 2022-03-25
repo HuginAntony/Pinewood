@@ -45,16 +45,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DatabaseLayer\ICustomerRepository.cs" />
-    <Compile Include="DatabaseLayer\IPartInvoiceRepository.cs" />
+    <Compile Include="Interfaces\ICustomerRepository.cs" />
+    <Compile Include="Interfaces\IPartInvoiceRepository.cs" />
     <Compile Include="Models\CreatePartInvoiceResult.cs" />
     <Compile Include="Models\Customer.cs" />
-    <Compile Include="DatabaseLayer\CustomerRepository.cs" />
+    <Compile Include="Repositories\CustomerRepository.cs" />
     <Compile Include="ServiceRegistration\SimpleInjectorSetup.cs" />
     <Compile Include="Services\PartAvailabilityService.cs" />
     <Compile Include="Models\PartInvoice.cs" />
     <Compile Include="Controllers\PartInvoiceController.cs" />
-    <Compile Include="DatabaseLayer\PartInvoiceRepository.cs" />
+    <Compile Include="Repositories\PartInvoiceRepository.cs" />
     <Compile Include="PinnacleClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -1,4 +1,4 @@
-﻿using PinnacleSample.DatabaseLayer;
+﻿using PinnacleSample.Interfaces;
 using PinnacleSample.Models;
 using PinnacleSample.Services;
 

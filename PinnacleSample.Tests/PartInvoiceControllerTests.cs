@@ -2,7 +2,7 @@
 using System;
 using Moq;
 using PinnacleSample.Controllers;
-using PinnacleSample.DatabaseLayer;
+using PinnacleSample.Interfaces;
 using PinnacleSample.Models;
 using PinnacleSample.Services;
 
