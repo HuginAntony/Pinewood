@@ -6,11 +6,11 @@ namespace PinnacleSample.Controllers
 {
     public class PartInvoiceController
     {
-        private readonly PartAvailabilityServiceClient _partAvailabilityService;
+        private readonly IPartAvailabilityService _partAvailabilityService;
         private readonly ICustomerRepository _customerRepository;
         private readonly IPartInvoiceRepository _partInvoiceRepository;
 
-        public PartInvoiceController(PartAvailabilityServiceClient partAvailabilityService, ICustomerRepository customerRepository,
+        public PartInvoiceController(IPartAvailabilityService partAvailabilityService, ICustomerRepository customerRepository,
             IPartInvoiceRepository partInvoiceRepository)
         {
             _partAvailabilityService = partAvailabilityService;
