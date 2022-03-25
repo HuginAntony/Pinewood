@@ -32,6 +32,14 @@ namespace PinnacleSample.Tests
         }
 
         [TestMethod]
+        public void Should_Return_False_When_Part_Is_Not_Available()
+        {
+            var partInvoiceController = new PartInvoiceController(null, null, null);
+            var result = partInvoiceController.CreatePartInvoice("KLJ9", 1, "Samsung");
+            Assert.IsFalse(result.Success);
+        }
+
+        [TestMethod]
         public void Can_Create_Part_Invoice()
         {
         }
