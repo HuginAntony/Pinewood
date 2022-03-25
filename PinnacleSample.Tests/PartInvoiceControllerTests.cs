@@ -1,5 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using Moq;
 using PinnacleSample.Controllers;
 using PinnacleSample.Interfaces;
@@ -20,6 +19,7 @@ namespace PinnacleSample.Tests
 
             var partInvoiceController = new PartInvoiceController(partAvailabilityServiceMock.Object, customerRepositoryMock.Object, partInvoiceRepositoryMock.Object);
             var result = partInvoiceController.CreatePartInvoice("", 10, "Samsung");
+
             Assert.IsFalse(result.Success);
         }
 
@@ -32,6 +32,7 @@ namespace PinnacleSample.Tests
 
             var partInvoiceController = new PartInvoiceController(partAvailabilityServiceMock.Object, customerRepositoryMock.Object, partInvoiceRepositoryMock.Object);
             var result = partInvoiceController.CreatePartInvoice("JU8", -1, "Samsung");
+
             Assert.IsFalse(result.Success);
         }
 
@@ -50,6 +51,7 @@ namespace PinnacleSample.Tests
 
             var partInvoiceController = new PartInvoiceController(partAvailabilityServiceMock.Object, customerRepositoryMock.Object, partInvoiceRepositoryMock.Object);
             var result = partInvoiceController.CreatePartInvoice("KLJ9", 1, "Samsung");
+
             Assert.IsFalse(result.Success);
         }
 
@@ -72,6 +74,7 @@ namespace PinnacleSample.Tests
 
             var partInvoiceController = new PartInvoiceController(partAvailabilityServiceMock.Object, customerRepositoryMock.Object, partInvoiceRepositoryMock.Object);
             var result = partInvoiceController.CreatePartInvoice("KLJ9", 1, "Samsung");
+
             Assert.IsFalse(result.Success);
         }
 
@@ -95,6 +98,7 @@ namespace PinnacleSample.Tests
 
             var partInvoiceController = new PartInvoiceController(partAvailabilityServiceMock.Object, customerRepositoryMock.Object, partInvoiceRepositoryMock.Object);
             var result = partInvoiceController.CreatePartInvoice("LKJW", 100, "Samsung");
+
             Assert.IsFalse(result.Success);
         }
 
@@ -118,6 +122,7 @@ namespace PinnacleSample.Tests
 
             var partInvoiceController = new PartInvoiceController(partAvailabilityServiceMock.Object, customerRepositoryMock.Object, partInvoiceRepositoryMock.Object);
             var result = partInvoiceController.CreatePartInvoice("LKJW", 100, "Samsung");
+
             Assert.IsTrue(result.Success);
         }
     }
