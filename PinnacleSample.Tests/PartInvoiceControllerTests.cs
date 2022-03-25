@@ -10,7 +10,7 @@ namespace PinnacleSample.Tests
         [TestMethod]
         public void Should_Return_False_When_StockCode_Is_NullOrEmpty()
         {
-            var partInvoiceController = new PartInvoiceController();
+            var partInvoiceController = new PartInvoiceController(null, null, null);
             var result = partInvoiceController.CreatePartInvoice("", 10, "Samsung");
             Assert.IsFalse(result.Success);
         }
@@ -18,7 +18,7 @@ namespace PinnacleSample.Tests
         [TestMethod]
         public void Should_Return_False_When_Quantity_Is_LessThanOrEqual_To_Zero()
         {
-            var partInvoiceController = new PartInvoiceController();
+            var partInvoiceController = new PartInvoiceController(null, null, null);
             var result = partInvoiceController.CreatePartInvoice("JU8", -1, "Samsung");
             Assert.IsFalse(result.Success);
         }
@@ -26,7 +26,7 @@ namespace PinnacleSample.Tests
         [TestMethod]
         public void Should_Return_False_When_CustomerId_Is_LessThanOrEqual_To_Zero()
         {
-            var partInvoiceController = new PartInvoiceController();
+            var partInvoiceController = new PartInvoiceController(null, null, null);
             var result = partInvoiceController.CreatePartInvoice("KLJ9", 1, "Samsung");
             Assert.IsFalse(result.Success);
         }

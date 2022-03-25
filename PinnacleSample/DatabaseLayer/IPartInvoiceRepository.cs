@@ -4,6 +4,6 @@ namespace PinnacleSample.DatabaseLayer
 {
     public interface IPartInvoiceRepository
     {
-        bool Add(PartInvoice invoice);
+        bool AddPartInvoice(PartInvoice invoice);
     }
 }

@@ -7,7 +7,7 @@ namespace PinnacleSample.DatabaseLayer
 {
     public class CustomerRepository : ICustomerRepository
     {
-        public Customer GetByName(string name)
+        public Customer GetCustomerByName(string name)
         {
             Customer customer = null;
 

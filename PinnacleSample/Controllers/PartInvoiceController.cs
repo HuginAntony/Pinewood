@@ -7,10 +7,17 @@ namespace PinnacleSample.Controllers
     public class PartInvoiceController
     {
         private readonly PartAvailabilityServiceClient _partAvailabilityService;
-        public PartInvoiceController(PartAvailabilityServiceClient partAvailabilityService)
+        private readonly ICustomerRepository _customerRepository;
+        private readonly IPartInvoiceRepository _partInvoiceRepository;
+
+        public PartInvoiceController(PartAvailabilityServiceClient partAvailabilityService, ICustomerRepository customerRepository,
+            IPartInvoiceRepository partInvoiceRepository)
         {
             _partAvailabilityService = partAvailabilityService;
+            _customerRepository = customerRepository;
+            _partInvoiceRepository = partInvoiceRepository;
         }
+
         public CreatePartInvoiceResult CreatePartInvoice(string stockCode, int quantity, string customerName)
         {
             if (string.IsNullOrEmpty(stockCode))
@@ -23,16 +30,16 @@ namespace PinnacleSample.Controllers
                 return new CreatePartInvoiceResult(false);
             }
 
-            var customerRepository = new CustomerRepository();
-            Customer customer = customerRepository.GetByName(customerName);
+            var customer = _customerRepository.GetCustomerByName(customerName);
+            
             if (customer.Id <= 0)
             {
                 return new CreatePartInvoiceResult(false);
             }
 
+            int totalPartsAvailable = _partAvailabilityService.GetAvailability(stockCode);
 
-            int availability = _partAvailabilityService.GetAvailability(stockCode);
-            if (availability <= 0)
+            if (totalPartsAvailable <= 0)
             {
                 return new CreatePartInvoiceResult(false);
             }
@@ -44,10 +51,9 @@ namespace PinnacleSample.Controllers
                 CustomerId = customer.Id
             };
 
-            var partInvoiceRepository = new PartInvoiceRepository();
-            partInvoiceRepository.Add(partInvoice);
+            var isCreated = _partInvoiceRepository.AddPartInvoice(partInvoice);
 
-            return new CreatePartInvoiceResult(true);
+            return new CreatePartInvoiceResult(isCreated);
         }
     }
 }

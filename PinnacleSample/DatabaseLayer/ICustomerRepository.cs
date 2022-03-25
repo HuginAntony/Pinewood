@@ -4,6 +4,6 @@ namespace PinnacleSample.DatabaseLayer
 {
     public interface ICustomerRepository
     {
-        Customer GetByName(string name);
+        Customer GetCustomerByName(string name);
     }
 }

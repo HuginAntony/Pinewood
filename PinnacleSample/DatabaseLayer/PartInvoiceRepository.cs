@@ -7,7 +7,7 @@ namespace PinnacleSample.DatabaseLayer
 {
     public class PartInvoiceRepository : IPartInvoiceRepository
     {
-        public bool Add(PartInvoice invoice)
+        public bool AddPartInvoice(PartInvoice invoice)
         {
             var connectionString = ConfigurationManager.ConnectionStrings["PinnacleConnection"].ConnectionString;
 
